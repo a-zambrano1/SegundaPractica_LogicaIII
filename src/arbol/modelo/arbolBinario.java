@@ -19,16 +19,16 @@ public class arbolBinario {
     }
 
     public nodoArbol retornaRaiz() {
-        return raiz;
+        return getRaiz();
     }
 
     public void asignaRaiz(nodoArbol raiz) {
-        this.raiz = raiz;
+        this.setRaiz(raiz);
     }
 
     boolean esVacio(){
         boolean vacio = false;
-        if(raiz == null){
+        if(getRaiz() == null){
             vacio = true;
         }
         return vacio;
@@ -36,26 +36,26 @@ public class arbolBinario {
     
     public void posOrden(nodoArbol r){
         if(r != null){
-            posOrden(r.retornaHizoIzq());
-            posOrden(r.retornaHijoDer());
-            System.out.println(r.retornaDato());
+            posOrden(r.getHijoIzq());
+            posOrden(r.getHijoDer());
+            System.out.println(r.getDato());
         }
     }
 
     public void preOrden(nodoArbol r){
         if(r != null){
-            System.out.println(r.retornaDato());
-            preOrden(r.retornaHizoIzq());
-            preOrden(r.retornaHijoDer());
+            System.out.println(r.getDato());
+            preOrden(r.getHijoIzq());
+            preOrden(r.getHijoDer());
         }
     }
 
     public void inorden(nodoArbol r){
         if(r!=null){
-            inorden(r.retornaHizoIzq());
+            inorden(r.getHijoIzq());
             Component rootPane = null;
-            JOptionPane.showMessageDialog(rootPane, r.retornaDato());
-            inorden(r.retornaHijoDer());
+            JOptionPane.showMessageDialog(rootPane, r.getDato());
+            inorden(r.getHijoDer());
         }
     }
 
@@ -64,20 +64,20 @@ public class arbolBinario {
         if(esVacio()){
             asignaRaiz(hoja);
         }else{
-            nodoArbol aux = raiz;
+            nodoArbol aux = getRaiz();
             nodoArbol padre= null;
             while(true){
                padre = aux;
-               if((Integer)dato < (Integer)aux.retornaDato()){
-                  aux = aux.retornaHizoIzq();
+               if((Integer)dato < (Integer)aux.getDato()){
+                  aux = aux.getHijoIzq();
                     if(aux == null){
-                        padre.asignaHizoIzq(hoja);
+                        padre.setHijoIzq(hoja);
                         return;
                     }
                }else{
-                   aux = aux.retornaHijoDer();
+                   aux = aux.getHijoDer();
                    if(aux == null){
-                       padre.asignaHijoDer(hoja);
+                       padre.setHijoDer(hoja);
                        return;
                    }
                }
@@ -89,7 +89,7 @@ public class arbolBinario {
         int n = s.length();
         int i = 2;
         nodoArbol raiz = new nodoArbol();
-        raiz.asignaDato(s.charAt(i));
+        raiz.setDato(s.charAt(i));
         for(i = 3; i < n ; i++){
             switch(s.charAt(i)){
                 case '(':
@@ -104,8 +104,220 @@ public class arbolBinario {
             }
         }
     }
+    
+    //Construccion por recorridos
+    
+    nodoArbol[] stringToVector(String g){
+        nodoArbol[] nodos = new nodoArbol[g.length()];
+        nodoArbol aux;
+        
+        int comas = 0;
+        for (int i = 0; i <g.length(); i++) {
+            if(String.valueOf(g.charAt(i)).equals(",")){
+                comas++;
+            }
+        }
+        
+        for (int i=0; i<comas+1;i++) {
+            int pos = g.indexOf(",");
+            
+            if (pos!=(-1)){
+                aux = new nodoArbol(g.substring(0, pos));
+                nodos[i]= aux;
+                g=g.substring(pos+1,g.length());
+            }
+            else{
+                aux = new nodoArbol(g);
+                nodos[i]= aux;
+            }
+        }
+        return nodos;
+    }
+  
 
+    void inOrden(String g){
+        nodoArbol[] nodos= stringToVector(g);
+        
+        if(nodos.length==1){
+            this.raiz=nodos[0];
+        } 
+        else if(nodos.length>1){
+            nodoArbol hijoIz;
+            nodoArbol hijoDe;
+            nodoArbol padre;
+            int pos=0;
+
+            while (pos<nodos.length) {
+                if(pos+2<nodos.length){
+                    hijoIz=nodos[pos];
+                    padre=nodos[pos+1];
+                    hijoDe=nodos[pos+2];
+
+                    padre.setHijoIzq(hijoIz);
+                    padre.setHijoDer(hijoDe);
+
+                    pos+=4;
+                }
+                else if(pos+1<nodos.length){
+                    hijoIz=nodos[pos];
+                    padre=nodos[pos];
+
+                    padre.setHijoIzq(hijoIz);
+                }
+            }
+            inOrden(reduccionVector(nodos));
+        }
+        else{
+            System.out.println("El arbol está vacio)");
+        }
+    }
+    
+    void inOrden(nodoArbol[] g){
+        nodoArbol[] nodos= g;
+        
+        if(nodos.length==1){
+            this.raiz=nodos[0];
+        } 
+        else if(nodos.length>1){
+            nodoArbol hijoIz;
+            nodoArbol hijoDe;
+            nodoArbol padre;
+            int pos=0;
+
+            while (pos<nodos.length) {
+                if(pos+2<nodos.length){
+                    hijoIz=nodos[pos];
+                    padre=nodos[pos+1];
+                    hijoDe=nodos[pos+2];
+
+                    padre.setHijoIzq(hijoIz);
+                    padre.setHijoDer(hijoDe);
+
+                    pos+=4;
+                }
+                else if(pos+1<nodos.length){
+                    hijoIz=nodos[pos];
+                    padre=nodos[pos];
+
+                    padre.setHijoIzq(hijoIz);
+                }
+            }
+            inOrden(reduccionVector(nodos));
+        }
+        else{
+            System.out.println("El arbol está vacio)");
+        }
+    }
+    void posOrden(String g){
+        nodoArbol[] nodos= stringToVector(g);
+        
+        if(nodos.length==1){
+            this.raiz=nodos[0];
+        } 
+        else if(nodos.length>1){
+            nodoArbol hijoIz;
+            nodoArbol hijoDe;
+            nodoArbol padre;
+            int pos=0;
+
+            while (pos<nodos.length) {
+                if(pos+2<nodos.length){
+                    hijoDe=nodos[pos];
+                    padre=nodos[pos+1];
+                    hijoIz=nodos[pos+2];
+
+                    padre.setHijoIzq(hijoIz);
+                    padre.setHijoDer(hijoDe);
+
+                    pos+=4;
+                }
+                else if(pos+1<nodos.length){
+                    hijoDe=nodos[pos];
+                    padre=nodos[pos];
+
+                    padre.setHijoIzq(hijoDe);
+                }
+            }
+            inOrden(reduccionVector(nodos));
+        }
+        else{
+            System.out.println("El arbol está vacio)");
+        }
+    }
+    
+    void posOrden(nodoArbol[] g){
+        nodoArbol[] nodos= g;
+        
+        if(nodos.length==1){
+            this.raiz=nodos[0];
+        } 
+        else if(nodos.length>1){
+            nodoArbol hijoIz;
+            nodoArbol hijoDe;
+            nodoArbol padre;
+            int pos=0;
+
+            while (pos<nodos.length) {
+                if(pos+2<nodos.length){
+                    hijoDe=nodos[pos];
+                    padre=nodos[pos+1];
+                    hijoIz=nodos[pos+2];
+
+                    padre.setHijoIzq(hijoIz);
+                    padre.setHijoDer(hijoDe);
+
+                    pos+=4;
+                }
+                else if(pos+1<nodos.length){
+                    hijoDe=nodos[pos];
+                    padre=nodos[pos];
+
+                    padre.setHijoIzq(hijoDe);
+                }
+            }
+            inOrden(reduccionVector(nodos));
+        }
+        else{
+            System.out.println("El arbol está vacio)");
+        }
+    }
+    
+    nodoArbol[] reduccionVector(nodoArbol[] nodos){
+        nodoArbol[] aux;
+        int tamaño =0;
+        for (int i = 0; i < nodos.length; i++) {
+            if(nodos[i].getPadre()==null){
+                tamaño++;
+            }
+        }
+        
+        aux =new nodoArbol[tamaño];
+        
+        int pos = 0;
+        while (aux[tamaño-1]==null) {            
+            if(nodos[pos].getPadre()==null){
+                aux[pos]= nodos[pos].getPadre();
+            }
+            pos++;
+        }
+        return aux;
+    }
+   
     private void initComponents() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the raiz
+     */
+    public nodoArbol getRaiz() {
+        return raiz;
+    }
+
+    /**
+     * @param raiz the raiz to set
+     */
+    public void setRaiz(nodoArbol raiz) {
+        this.raiz = raiz;
     }
 }    
