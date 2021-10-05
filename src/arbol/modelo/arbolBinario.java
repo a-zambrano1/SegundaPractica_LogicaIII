@@ -4,7 +4,7 @@ package arbol.modelo;
 import java.awt.Component;
 import java.util.Stack;
 import javax.swing.JOptionPane;
-
+import java.lang.Math;
 
 public class arbolBinario {
     private nodoArbol raiz;
@@ -18,13 +18,7 @@ public class arbolBinario {
         
     }
 
-    public nodoArbol retornaRaiz() {
-        return getRaiz();
-    }
 
-    public void asignaRaiz(nodoArbol raiz) {
-        this.setRaiz(raiz);
-    }
 
     boolean esVacio(){
         boolean vacio = false;
@@ -281,6 +275,41 @@ public class arbolBinario {
             System.out.println("El arbol está vacio)");
         }
     }
+    
+    void preOrden(String g){
+        nodoArbol[] nodos = stringToVector(g);
+        int i = 0;
+        int t= g.length()-1;
+        int k=Math.round((t-i+1)/2);
+        
+        if(k!=0){
+            if( (i+1)<nodos.length && (i+k+1)<nodos.length){
+                nodos[i].setHijoIzq(nodos[i+1]);
+                nodos[i].setHijoIzq(nodos[i+k+1]);
+                preOrden(i+1,i+k,nodos);
+                preOrden(i+k+1,t,nodos);
+            }
+            else if((i+1)<nodos.length){
+                nodos[i].setHijoIzq(nodos[i+1]);
+            }
+        }
+    }
+
+void preOrden(int i, int t,nodoArbol[] nodos){
+        int k=Math.round((t-i+1)/2);
+        
+        if(k!=0){
+            if( (i+1)<nodos.length && (i+k+1)<nodos.length){
+                nodos[i].setHijoIzq(nodos[i+1]);
+                nodos[i].setHijoIzq(nodos[i+k+1]);
+                preOrden(i+1,i+k,nodos);
+                preOrden(i+k+1,t,nodos);
+            }
+            else if((i+1)<nodos.length){
+                nodos[i].setHijoIzq(nodos[i+1]);
+            }
+        }
+}
     
     nodoArbol[] reduccionVector(nodoArbol[] nodos){
         nodoArbol[] aux;
