@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.util.Stack;
 import javax.swing.JOptionPane;
 import java.lang.Math;
+import java.util.Random;
 
 public class arbolBinario {
     private nodoArbol raiz;
@@ -397,6 +398,62 @@ public class arbolBinario {
             pos++;
         }
         return aux;
+    }
+    
+    public void disponibilidad(boolean[] vetor, int in, int n){
+        for(int i=in; i<= n; i++){
+            vetor[i] = true;
+        }
+    }
+
+    public nodoArbol[] arbolCompleto(nodoArbol[] datos){
+        nodoArbol[] arbol = new nodoArbol[(int) (Math.pow(2, datos.length)-1)];
+        boolean[] espaciosDisponibles = new boolean[arbol.length];
+        arbol[0] = datos[0];
+        disponibilidad(espaciosDisponibles,1, 1);
+        disponibilidad(espaciosDisponibles,1, 2);
+        for(int i=1; i<datos.length; i++){
+            Random rnd = new Random();
+            while(true){
+                int pos = rnd.nextInt(2*(i-1)+2);
+                if(espaciosDisponibles[pos] == true){
+                    arbol[pos] = datos [i];
+                    disponibilidad(espaciosDisponibles,2*i+1,2*i+1);
+                    disponibilidad(espaciosDisponibles,2*i+1,(2*i+2)+1);
+                    espaciosDisponibles[pos] = false;
+                    break;
+                }
+            }
+        }
+        return arbol;
+    }
+
+    public void aleatorioDatos(String s){
+        nodoArbol[] datos = stringToVector(s);
+        nodoArbol[] arbolCompleto = arbolCompleto(datos);
+        nodoArbol aux = null;
+        this.setRaiz(datos[0]);
+        for(int i=1; i< arbolCompleto.length; i++) {
+            if(arbolCompleto[i] != null){
+                aux = arbolCompleto[i];
+                if (i == 1) {
+                    this.raiz.setHijoIzq(aux);
+                    aux.setPadre(this.raiz);
+                } else if (i == 2) {
+                    this.raiz.setHijoDer(aux);
+                    aux.setPadre(this.raiz);
+                } else if (i % 2 == 0) {
+                    arbolCompleto[(i / 2) - 1].setHijoDer(aux);
+                    aux.setPadre(arbolCompleto[(i / 2) - 1]);
+                } else {
+                    arbolCompleto[i / 2].setHijoIzq(aux);
+                    aux.setPadre(arbolCompleto[i / 2]);
+                }
+            }else{
+                continue;
+            }
+        }
+        inorden(this.raiz);
     }
    
     private void initComponents() {
