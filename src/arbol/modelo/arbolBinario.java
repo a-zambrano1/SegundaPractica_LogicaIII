@@ -145,6 +145,10 @@ public class arbolBinario {
     private String procesaString(String g){
         g.replace(" ", "");
         
+        while(g.indexOf(",,")!=(-1)){
+            g.replace(",,", ",");
+        }
+        
         while(String.valueOf(g.charAt(0)).equals(",")){
             g=g.substring(1);
         }
@@ -392,7 +396,7 @@ public class arbolBinario {
         int pos = 0;
         while (aux[tamaño-1]==null) {            
             if(nodos[pos].getPadre()==null){
-                aux[pos]= nodos[pos].getPadre();
+                aux[pos]= nodos[pos];
             }
             pos++;
         }
