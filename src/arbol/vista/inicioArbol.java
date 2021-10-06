@@ -125,7 +125,7 @@ public class inicioArbol extends javax.swing.JFrame {
         if(ingresoArbol == null){
             JOptionPane.showMessageDialog(rootPane, "Árbol vacío. No se puede recorrrer");
         }else{
-            arbolito.preOrden(arbolito.retornaRaiz());
+            arbolito.preOrden(arbolito.getRaiz());
         }
     }//GEN-LAST:event_recorridoPreordenActionPerformed
 

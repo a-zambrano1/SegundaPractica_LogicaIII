@@ -18,8 +18,6 @@ public class arbolBinario {
         
     }
 
-
-
     boolean esVacio(){
         boolean vacio = false;
         if(getRaiz() == null){
@@ -56,7 +54,7 @@ public class arbolBinario {
     public void insertarNodo(Object dato){
         nodoArbol hoja = new nodoArbol(dato);
         if(esVacio()){
-            asignaRaiz(hoja);
+            this.setRaiz(hoja);
         }else{
             nodoArbol aux = getRaiz();
             nodoArbol padre= null;
@@ -100,25 +98,35 @@ public class arbolBinario {
     }
     
     //Construccion por recorridos
-    
-    nodoArbol[] stringToVector(String g){
-        nodoArbol[] nodos = new nodoArbol[g.length()];
-        nodoArbol aux;
+    /**
+     * A partir de una entrada String g construye un vector con 
+     * x cantidad de nodos contenidos en g, segun el formato planteado
+     * cada nombre de nodo esta separado por comas.
+     * @param g Entrada string para un arbol, cada nodo debe estar separado
+     * por coma ",".
+     * @return devuelve el vector de nodos construido.
+     */
+    private nodoArbol[] stringToVector(String g){
+        g=procesaString(g);
         
         int comas = 0;
+        
         for (int i = 0; i <g.length(); i++) {
             if(String.valueOf(g.charAt(i)).equals(",")){
                 comas++;
             }
         }
         
-        for (int i=0; i<comas+1;i++) {
+        nodoArbol[] nodos = new nodoArbol[comas+1];
+        nodoArbol aux;
+ 
+        for (int i=0; i<=comas+1;i++) {
             int pos = g.indexOf(",");
             
             if (pos!=(-1)){
                 aux = new nodoArbol(g.substring(0, pos));
                 nodos[i]= aux;
-                g=g.substring(pos+1,g.length());
+                g=g.substring(pos+1);
             }
             else{
                 aux = new nodoArbol(g);
@@ -127,9 +135,34 @@ public class arbolBinario {
         }
         return nodos;
     }
+    
+    /**
+     * Prepara el String ingresado para el correcto desarrollo del
+     * proceso de conversion a Vector.
+     * @param g
+     * @return 
+     */
+    private String procesaString(String g){
+        g.replace(" ", "");
+        
+        while(String.valueOf(g.charAt(0)).equals(",")){
+            g=g.substring(1);
+        }
+        
+        while(String.valueOf(g.charAt(g.length())).equals(",")){
+            g=g.substring(0,g.length()-1);
+        }
+        
+        return g;
+    }
   
-
-    void inOrden(String g){
+    /**
+     * A partir de una entrada String g construye un arbol binario
+     * con base en el recorrido in orden expresado en g 
+     * @param g recorrido in orden del arbol ingresado. Cada
+     * nodo debe estar separado por coma.
+     */
+    public void inOrden(String g){
         nodoArbol[] nodos= stringToVector(g);
         
         if(nodos.length==1){
@@ -166,7 +199,12 @@ public class arbolBinario {
         }
     }
     
-    void inOrden(nodoArbol[] g){
+    /**
+     * A partir de una entrada nodoArbol[] g construye un arbol binario
+     * con base en el recorrido in orden expresado en g.
+     * @param g 
+     */
+    private void inOrden(nodoArbol[] g){
         nodoArbol[] nodos= g;
         
         if(nodos.length==1){
@@ -202,7 +240,13 @@ public class arbolBinario {
             System.out.println("El arbol está vacio)");
         }
     }
-    void posOrden(String g){
+    
+    /**
+     * A partir de una entrada String g construye un arbol binario
+     * con base en el recorrido pos orden expresado en g.
+     * @param g 
+     */
+    public void posOrden(String g){
         nodoArbol[] nodos= stringToVector(g);
         
         if(nodos.length==1){
@@ -239,7 +283,12 @@ public class arbolBinario {
         }
     }
     
-    void posOrden(nodoArbol[] g){
+    /**
+     * A partir de una entrada nodoArbol[] g construye un arbol binario
+     * con base en el recorrido pos orden expresado en g.
+     * @param g 
+     */
+    private void posOrden(nodoArbol[] g){
         nodoArbol[] nodos= g;
         
         if(nodos.length==1){
@@ -276,7 +325,12 @@ public class arbolBinario {
         }
     }
     
-    void preOrden(String g){
+    /**
+     * A partir de una entrada String g construye un arbol binario
+     * con base en el recorrido pre orden expresado en g.
+     * @param g 
+     */
+    public void preOrden(String g){
         nodoArbol[] nodos = stringToVector(g);
         int i = 0;
         int t= g.length()-1;
@@ -294,8 +348,16 @@ public class arbolBinario {
             }
         }
     }
-
-void preOrden(int i, int t,nodoArbol[] nodos){
+    
+    /**
+     * A partir de una entrada nodoArbol[] nodos, un parametro de inicio i
+     * y un parametro de fin t construye un arbol binario con base en el 
+     * recorrido pos orden expresado en el vector.
+     * @param i posicion de inicio en el vector
+     * @param t posicion de fin en le vector
+     * @param nodos vectpr cos los nodos del arbol
+     */
+    private void preOrden(int i, int t,nodoArbol[] nodos){
         int k=Math.round((t-i+1)/2);
         
         if(k!=0){
@@ -310,8 +372,13 @@ void preOrden(int i, int t,nodoArbol[] nodos){
             }
         }
 }
-    
-    nodoArbol[] reduccionVector(nodoArbol[] nodos){
+    /**
+     * Contruye un vector nuevo en el que almacena solo los nodos aun sin 
+     * procesar.
+     * @param nodos Vector con nodos.
+     * @return 
+     */
+    private nodoArbol[] reduccionVector(nodoArbol[] nodos){
         nodoArbol[] aux;
         int tamaño =0;
         for (int i = 0; i < nodos.length; i++) {
