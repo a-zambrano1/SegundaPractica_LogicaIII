@@ -360,7 +360,7 @@ public class arbolBinario {
      * recorrido pos orden expresado en el vector.
      * @param i posicion de inicio en el vector
      * @param t posicion de fin en le vector
-     * @param nodos vectpr cos los nodos del arbol
+     * @param nodos vector con los nodos del arbol
      */
     private void preOrden(int i, int t,nodoArbol[] nodos){
         int k=Math.round((t-i+1)/2);
@@ -404,26 +404,36 @@ public class arbolBinario {
         return aux;
     }
     
+    /**
+     * Vector booleanos para controlar que por cada nodo se habilitan dos
+     * posiciones para conectar sus hijos
+     * @param vetor Vector booleano que controla posiciones disponibles
+     * @param in Inicio para organizar las posiciones disponibles
+     * @param n  Final hasta donde se organiza las posiciones disponibles
+     */
     public void disponibilidad(boolean[] vetor, int in, int n){
         for(int i=in; i<= n; i++){
             vetor[i] = true;
         }
     }
-
+    /**
+     * Creamos un vector de nodos para controlar
+     * la conexion con sus hijos aleatoriamente
+     * @param datos Vector de nodos donde estan los datos ingresados por el usuario
+     * @return Vector de nodos con las posiciones de hijos y padres
+     */
     public nodoArbol[] arbolCompleto(nodoArbol[] datos){
+        Random rnd = new Random();
         nodoArbol[] arbol = new nodoArbol[(int) (Math.pow(2, datos.length)-1)];
         boolean[] espaciosDisponibles = new boolean[arbol.length];
         arbol[0] = datos[0];
-        disponibilidad(espaciosDisponibles,1, 1);
         disponibilidad(espaciosDisponibles,1, 2);
         for(int i=1; i<datos.length; i++){
-            Random rnd = new Random();
             while(true){
                 int pos = rnd.nextInt(2*(i-1)+2);
                 if(espaciosDisponibles[pos] == true){
                     arbol[pos] = datos [i];
-                    disponibilidad(espaciosDisponibles,2*i+1,2*i+1);
-                    disponibilidad(espaciosDisponibles,2*i+1,(2*i+2)+1);
+                    disponibilidad(espaciosDisponibles,2*pos+1,2*pos+2);
                     espaciosDisponibles[pos] = false;
                     break;
                 }
@@ -431,8 +441,16 @@ public class arbolBinario {
         }
         return arbol;
     }
-
+    
+    /**
+     * Creamos un árbol totalmente aleatorio
+     * a partir de una cadena ingresada por el usuario
+     * @param s Cadena ingresada por el usuario
+     */
     public void aleatorioDatos(String s){
+        if(s == ""){
+            //IMPRESION DE CADENA VACÍA
+        }
         nodoArbol[] datos = stringToVector(s);
         nodoArbol[] arbolCompleto = arbolCompleto(datos);
         nodoArbol aux = null;
@@ -457,7 +475,71 @@ public class arbolBinario {
                 continue;
             }
         }
-        inorden(this.raiz);
+    }
+    /**
+     * Generamos un vector de nodos, donde cada nodo contiene una letra
+     * del abecedario aleatoria
+     * @param n Tamaño del árbol inicial
+     * @return Vector de nodos
+     */
+    public nodoArbol[] generarDatosAleatorios(int n) {
+        String[] abc = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+        nodoArbol[] nodos = new nodoArbol[n];
+        nodoArbol aux;
+        Random rnd = new Random();
+        for(int i=0; i< n; i++){
+            while(true){
+                int alea = rnd.nextInt(26);
+                if(abc[alea] != null){
+                    aux = new nodoArbol(abc[alea]);
+                    nodos[i] = aux;
+                    abc[alea] = null;
+                    break;
+                }
+            }
+        }
+        return nodos;
+    }
+    
+    /**
+     * Creamos árbol aleatorio a partir de un
+     * vector de nodos con datos del abecedario
+     * @param n 
+     */
+    public void aleatorioPorTamaño(int n){
+        if(n<=0){
+            System.out.println("Tamaño del árbol es vacío. No se creará ninguno.");
+            return;
+        }
+        if(n>=26){
+            System.out.println("Exceso de tamaño. Error");
+            return;
+        }
+        nodoArbol[] datos = generarDatosAleatorios(n);
+        nodoArbol[] arbolCompleto = arbolCompleto(datos);
+        nodoArbol aux = null;
+        this.setRaiz(datos[0]);
+        for(int i=1; i< arbolCompleto.length; i++) {
+            if(arbolCompleto[i] != null){
+                aux = arbolCompleto[i];
+                if (i == 1) {
+                    this.raiz.setHijoIzq(aux);
+                    aux.setPadre(this.raiz);
+                } else if (i == 2) {
+                    this.raiz.setHijoDer(aux);
+                    aux.setPadre(this.raiz);
+                } else if (i % 2 == 0) {
+                    arbolCompleto[(i / 2) - 1].setHijoDer(aux);
+                    aux.setPadre(arbolCompleto[(i / 2) - 1]);
+                } else {
+                    arbolCompleto[i / 2].setHijoIzq(aux);
+                    aux.setPadre(arbolCompleto[i / 2]);
+                }
+            }else{
+                continue;
+            }
+        }
+        //inorden(this.raiz);
     }
    
     private void initComponents() {
