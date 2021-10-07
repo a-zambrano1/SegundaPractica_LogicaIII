@@ -192,7 +192,7 @@ public class arbolBinario {
                 }
                 else if(pos+1<nodos.length){
                     hijoIz=nodos[pos];
-                    padre=nodos[pos];
+                    padre=nodos[pos+1];
 
                     padre.setHijoIzq(hijoIz);
                 }
@@ -234,7 +234,7 @@ public class arbolBinario {
                 }
                 else if(pos+1<nodos.length){
                     hijoIz=nodos[pos];
-                    padre=nodos[pos];
+                    padre=nodos[pos+1];
 
                     padre.setHijoIzq(hijoIz);
                 }
@@ -276,7 +276,7 @@ public class arbolBinario {
                 }
                 else if(pos+1<nodos.length){
                     hijoDe=nodos[pos];
-                    padre=nodos[pos];
+                    padre=nodos[pos+1];
 
                     padre.setHijoIzq(hijoDe);
                 }
@@ -318,7 +318,7 @@ public class arbolBinario {
                 }
                 else if(pos+1<nodos.length){
                     hijoDe=nodos[pos];
-                    padre=nodos[pos];
+                    padre=nodos[pos+1];
 
                     padre.setHijoIzq(hijoDe);
                 }
