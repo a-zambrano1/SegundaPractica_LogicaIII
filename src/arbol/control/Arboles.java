@@ -7,6 +7,11 @@ package arbol.control;
 
 
 import arbol.vista.*;
+import java.awt.Image;
+import arbol.modelo.*;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 /**
  *
  * @author alejo
@@ -18,11 +23,10 @@ public class Arboles extends javax.swing.JFrame {
      * Creates new form Arboles
      */
     public Arboles() {
+        this.setContentPane(new ImagenFondo());
         initComponents();
+        this.setLocationRelativeTo(null);
         setTitle("Arboles Practica 2");
-        inicio = new inicioArbol();
-        //desktopPane.add(inicio);
-        
         
     }
 
@@ -35,67 +39,85 @@ public class Arboles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        iniciarArbol = new javax.swing.JButton();
-        salida = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+        start = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        texto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("¡BIENVENIDO o BIENVENIDA!");
-
-        iniciarArbol.setText("ARBOLES");
-        iniciarArbol.addActionListener(new java.awt.event.ActionListener() {
+        exit.setText("Salir");
+        exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iniciarArbolActionPerformed(evt);
+                exitActionPerformed(evt);
             }
         });
 
-        salida.setText("SALIR");
-        salida.addActionListener(new java.awt.event.ActionListener() {
+        start.setText("Iniciar");
+        start.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salidaActionPerformed(evt);
+                startActionPerformed(evt);
             }
         });
+
+        texto.setBackground(new java.awt.Color(153, 153, 153));
+        texto.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        texto.setForeground(new java.awt.Color(0, 0, 0));
+        texto.setText("Bienvenido");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(texto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(salida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(iniciarArbol, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-                .addGap(86, 86, 86))
+                .addGap(126, 126, 126)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(start, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(exit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(iniciarArbol, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(salida, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void salidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_salidaActionPerformed
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitActionPerformed
 
-    private void iniciarArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarArbolActionPerformed
-        // TODO add your handling code here:
+    private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
+        this.setVisible(false);
+        inicio = new inicioArbol();
         inicio.setVisible(true);
-    }//GEN-LAST:event_iniciarArbolActionPerformed
+        inicio.setLocationRelativeTo(null);
+    }//GEN-LAST:event_startActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,8 +155,23 @@ public class Arboles extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton iniciarArbol;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton salida;
+    private javax.swing.JButton exit;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton start;
+    private javax.swing.JLabel texto;
     // End of variables declaration//GEN-END:variables
+
+    public class ImagenFondo extends JPanel {
+        
+        @Override
+        public void paint(Graphics g){
+            ImageIcon imagen = new ImageIcon(getClass().getResource("/Images/arbol2.png"));
+            g.drawImage(imagen.getImage(),0,0,getWidth(),getHeight(),this);
+            this.setOpaque(false);
+            super.paint(g);
+
+        }
+    }
 }
+
+

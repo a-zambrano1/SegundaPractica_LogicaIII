@@ -9,9 +9,12 @@ import java.util.Random;
 
 public class arbolBinario {
     private nodoArbol raiz;
+    private int numNodos;
+    private nodoArbol aux;
 
     public arbolBinario (Object dato){
         this.raiz = new nodoArbol(dato);
+        this.numNodos =0;
         initComponents();
     }
     
@@ -27,28 +30,28 @@ public class arbolBinario {
         return vacio;
     }
     
-    public void posOrden(nodoArbol r){
+    public void posOrder(nodoArbol r){
         if(r != null){
-            posOrden(r.getHijoIzq());
-            posOrden(r.getHijoDer());
+            posOrder(r.getHijoIzq());
+            posOrder(r.getHijoDer());
             System.out.println(r.getDato());
         }
     }
 
-    public void preOrden(nodoArbol r){
+    public void preOrder(nodoArbol r){
         if(r != null){
             System.out.println(r.getDato());
-            preOrden(r.getHijoIzq());
-            preOrden(r.getHijoDer());
+            preOrder(r.getHijoIzq());
+            preOrder(r.getHijoDer());
         }
     }
 
-    public void inorden(nodoArbol r){
+    public void inorder(nodoArbol r){
         if(r!=null){
-            inorden(r.getHijoIzq());
+            inorder(r.getHijoIzq());
             Component rootPane = null;
-            JOptionPane.showMessageDialog(rootPane, r.getDato());
-            inorden(r.getHijoDer());
+            System.out.println(r.getDato());
+            inorder(r.getHijoDer());
         }
     }
 
@@ -107,7 +110,7 @@ public class arbolBinario {
      * por coma ",".
      * @return devuelve el vector de nodos construido.
      */
-    private nodoArbol[] stringToVector(String g){
+    public nodoArbol[] stringToVector(String g){
         g=procesaString(g);
         
         int comas = 0;
@@ -119,9 +122,9 @@ public class arbolBinario {
         }
         
         nodoArbol[] nodos = new nodoArbol[comas+1];
-        nodoArbol aux;
+        nodoArbol aux= new nodoArbol();
  
-        for (int i=0; i<=comas+1;i++) {
+        for (int i=0; i<=comas;i++) {
             int pos = g.indexOf(",");
             
             if (pos!=(-1)){
@@ -154,7 +157,7 @@ public class arbolBinario {
             g=g.substring(1);
         }
         
-        while(String.valueOf(g.charAt(g.length())).equals(",")){
+        while(String.valueOf(g.charAt(g.length()-1)).equals(",")){
             g=g.substring(0,g.length()-1);
         }
         
@@ -167,18 +170,18 @@ public class arbolBinario {
      * @param g recorrido in orden del arbol ingresado. Cada
      * nodo debe estar separado por coma.
      */
-    public void inOrden(String g){
+    public void inOrderCons(String g){
         nodoArbol[] nodos= stringToVector(g);
         
         if(nodos.length==1){
             this.raiz=nodos[0];
         } 
         else if(nodos.length>1){
-            nodoArbol hijoIz;
-            nodoArbol hijoDe;
-            nodoArbol padre;
+            nodoArbol hijoIz= new nodoArbol("");
+            nodoArbol hijoDe= new nodoArbol("");
+            nodoArbol padre= new nodoArbol("");
             int pos=0;
-
+            
             while (pos<nodos.length) {
                 if(pos+2<nodos.length){
                     hijoIz=nodos[pos];
@@ -187,17 +190,28 @@ public class arbolBinario {
 
                     padre.setHijoIzq(hijoIz);
                     padre.setHijoDer(hijoDe);
+                    
+                    hijoIz.setPadre(padre);
+                    hijoDe.setPadre(padre);
 
-                    pos+=4;
+                    pos=pos + 4;
                 }
                 else if(pos+1<nodos.length){
                     hijoIz=nodos[pos];
                     padre=nodos[pos+1];
-
+                    
                     padre.setHijoIzq(hijoIz);
+                    
+                    hijoIz.setPadre(padre);
+
+                    pos=pos +2;
+                }
+                else{
+                    this.raiz= nodos[pos];
+                    pos++;
                 }
             }
-            inOrden(reduccionVector(nodos));
+            inOrderCons(reduccionVector(nodos));
         }
         else{
             System.out.println("El arbol está vacio)");
@@ -209,18 +223,18 @@ public class arbolBinario {
      * con base en el recorrido in orden expresado en g.
      * @param g 
      */
-    private void inOrden(nodoArbol[] g){
+    private void inOrderCons(nodoArbol[] g){
         nodoArbol[] nodos= g;
         
         if(nodos.length==1){
             this.raiz=nodos[0];
         } 
         else if(nodos.length>1){
-            nodoArbol hijoIz;
-            nodoArbol hijoDe;
-            nodoArbol padre;
+            nodoArbol hijoIz= new nodoArbol("");
+            nodoArbol hijoDe= new nodoArbol("");
+            nodoArbol padre= new nodoArbol("");
             int pos=0;
-
+            
             while (pos<nodos.length) {
                 if(pos+2<nodos.length){
                     hijoIz=nodos[pos];
@@ -229,20 +243,28 @@ public class arbolBinario {
 
                     padre.setHijoIzq(hijoIz);
                     padre.setHijoDer(hijoDe);
+                    
+                    hijoIz.setPadre(padre);
+                    hijoDe.setPadre(padre);
 
-                    pos+=4;
+                    pos=pos + 4;
                 }
                 else if(pos+1<nodos.length){
                     hijoIz=nodos[pos];
                     padre=nodos[pos+1];
-
                     padre.setHijoIzq(hijoIz);
+                    
+                    hijoIz.setPadre(padre);
+                    
+                    pos=pos +2;
+
+                }
+                else{
+                    this.raiz= nodos[pos];
+                    pos++;
                 }
             }
-            inOrden(reduccionVector(nodos));
-        }
-        else{
-            System.out.println("El arbol está vacio)");
+            inOrderCons(reduccionVector(nodos));
         }
     }
     
@@ -251,16 +273,16 @@ public class arbolBinario {
      * con base en el recorrido pos orden expresado en g.
      * @param g 
      */
-    public void posOrden(String g){
+    public void posOrderCons(String g){
         nodoArbol[] nodos= stringToVector(g);
         
         if(nodos.length==1){
             this.raiz=nodos[0];
         } 
         else if(nodos.length>1){
-            nodoArbol hijoIz;
-            nodoArbol hijoDe;
-            nodoArbol padre;
+            nodoArbol hijoIz= new nodoArbol("");
+            nodoArbol hijoDe= new nodoArbol("");
+            nodoArbol padre= new nodoArbol("");
             int pos=0;
 
             while (pos<nodos.length) {
@@ -271,6 +293,9 @@ public class arbolBinario {
 
                     padre.setHijoIzq(hijoIz);
                     padre.setHijoDer(hijoDe);
+                    
+                    hijoIz.setPadre(padre);
+                    hijoDe.setPadre(padre);
 
                     pos+=4;
                 }
@@ -279,9 +304,17 @@ public class arbolBinario {
                     padre=nodos[pos+1];
 
                     padre.setHijoIzq(hijoDe);
+                    
+                    hijoDe.setPadre(padre);
+                    
+                    pos++;
+                }
+                else{
+                    this.raiz= nodos[pos];
+                    pos++;
                 }
             }
-            inOrden(reduccionVector(nodos));
+            posOrderCons(reduccionVector(nodos));
         }
         else{
             System.out.println("El arbol está vacio)");
@@ -293,16 +326,16 @@ public class arbolBinario {
      * con base en el recorrido pos orden expresado en g.
      * @param g 
      */
-    private void posOrden(nodoArbol[] g){
+    private void posOrderCons(nodoArbol[] g){
         nodoArbol[] nodos= g;
         
         if(nodos.length==1){
             this.raiz=nodos[0];
         } 
         else if(nodos.length>1){
-            nodoArbol hijoIz;
-            nodoArbol hijoDe;
-            nodoArbol padre;
+            nodoArbol hijoIz= new nodoArbol("");
+            nodoArbol hijoDe= new nodoArbol("");
+            nodoArbol padre= new nodoArbol("");
             int pos=0;
 
             while (pos<nodos.length) {
@@ -313,6 +346,9 @@ public class arbolBinario {
 
                     padre.setHijoIzq(hijoIz);
                     padre.setHijoDer(hijoDe);
+                    
+                    hijoIz.setPadre(padre);
+                    hijoDe.setPadre(padre);
 
                     pos+=4;
                 }
@@ -321,9 +357,17 @@ public class arbolBinario {
                     padre=nodos[pos+1];
 
                     padre.setHijoIzq(hijoDe);
+
+                    hijoDe.setPadre(padre);
+                    
+                    pos++;
+                }
+                else{
+                    this.raiz= nodos[pos];
+                    pos++;
                 }
             }
-            inOrden(reduccionVector(nodos));
+            posOrderCons(reduccionVector(nodos));
         }
         else{
             System.out.println("El arbol está vacio)");
@@ -331,75 +375,74 @@ public class arbolBinario {
     }
     
     /**
-     * A partir de una entrada String g construye un arbol binario
-     * con base en el recorrido pre orden expresado en g.
-     * @param g 
+     * Segun dos recorridos ingresados se contruye el arbol que representan.
+     * @param inOrderImput Recorrido inOrder
+     * @param otroImput Recorrido posOrder o preOrder
+     * @param bin Define que recorrido se ingresó en otro, 0 para preOrder y 1 para posOrder
      */
-    public void preOrden(String g){
-        nodoArbol[] nodos = stringToVector(g);
-        int i = 0;
-        int t= g.length()-1;
-        int k=Math.round((t-i+1)/2);
+    public void arbolPorRecorridos(String inOrderImput,String otroImput,int bin){
+        nodoArbol[] inOrder = stringToVector(inOrderImput);
+        nodoArbol[] otro = stringToVector(otroImput);
+        nodoArbol[][] aux = new nodoArbol[otro.length][inOrder.length];
+        int coincidencias=0;
         
-        if(k!=0){
-            if( (i+1)<nodos.length && (i+k+1)<nodos.length){
-                nodos[i].setHijoIzq(nodos[i+1]);
-                nodos[i].setHijoIzq(nodos[i+k+1]);
-                preOrden(i+1,i+k,nodos);
-                preOrden(i+k+1,t,nodos);
-            }
-            else if((i+1)<nodos.length){
-                nodos[i].setHijoIzq(nodos[i+1]);
+        //si otro es pre order
+        
+        if(bin==0){
+            for (int i = 0; i < inOrder.length; i++) {
+                for (int j = 0; j < otro.length; j++) {
+                    if(inOrder[i]==otro[j]){
+                        aux[i][j]= inOrder[i];
+                        coincidencias++;
+                    }
+                }
             }
         }
+        //si otro es pos order
+        else if(bin==1){
+            for (int i = 0; i < inOrder.length; i++) {
+                for (int j = otro.length-1; j > 0; j--) {
+                    if(inOrder[i]==otro[j]){
+                        aux[i][j]= inOrder[i];
+                        coincidencias++;
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Sos Reputo en el comentario dice que solo 0 y 1");
+        }
+        
     }
-    
-    /**
-     * A partir de una entrada nodoArbol[] nodos, un parametro de inicio i
-     * y un parametro de fin t construye un arbol binario con base en el 
-     * recorrido pos orden expresado en el vector.
-     * @param i posicion de inicio en el vector
-     * @param t posicion de fin en le vector
-     * @param nodos vector con los nodos del arbol
-     */
-    private void preOrden(int i, int t,nodoArbol[] nodos){
-        int k=Math.round((t-i+1)/2);
-        
-        if(k!=0){
-            if( (i+1)<nodos.length && (i+k+1)<nodos.length){
-                nodos[i].setHijoIzq(nodos[i+1]);
-                nodos[i].setHijoIzq(nodos[i+k+1]);
-                preOrden(i+1,i+k,nodos);
-                preOrden(i+k+1,t,nodos);
-            }
-            else if((i+1)<nodos.length){
-                nodos[i].setHijoIzq(nodos[i+1]);
-            }
-        }
-}
+
+
     /**
      * Contruye un vector nuevo en el que almacena solo los nodos aun sin 
      * procesar.
      * @param nodos Vector con nodos.
      * @return 
      */
-    private nodoArbol[] reduccionVector(nodoArbol[] nodos){
+    public nodoArbol[] reduccionVector(nodoArbol[] nodos){
         nodoArbol[] aux;
         int tamaño =0;
         for (int i = 0; i < nodos.length; i++) {
             if(nodos[i].getPadre()==null){
                 tamaño++;
+                
             }
         }
         
         aux =new nodoArbol[tamaño];
         
-        int pos = 0;
-        while (aux[tamaño-1]==null) {            
-            if(nodos[pos].getPadre()==null){
-                aux[pos]= nodos[pos];
+        int pos1 = 0;
+        int pos2 = 0;
+        
+        while (pos1<tamaño) {            
+            if(nodos[pos2].getPadre()==null){
+                aux[pos1]= nodos[pos2];
+                pos1++;
             }
-            pos++;
+            pos2++;
         }
         return aux;
     }
@@ -541,7 +584,95 @@ public class arbolBinario {
         }
         //inorden(this.raiz);
     }
-   
+    
+    public void nodito(nodoArbol x, String dato){
+        if(x != null){
+            if(dato.compareTo(x.getDato().toString()) == 0){
+                this.aux = x;
+                return;
+            }
+            nodito(x.getHijoIzq(),dato);
+            nodito(x.getHijoDer(), dato);
+        }
+
+    }
+
+public nodoArbol llamado(nodoArbol x, String dato){
+        this.aux = null;
+        nodito(x,dato);
+        return this.aux;
+}
+
+public int contarHijos(nodoArbol x, String dato){
+        nodoArbol aux = llamado(x,dato);
+        int hijos=0;
+        if(aux.getHijoIzq() != null){
+            hijos=hijos+1;
+        }
+        if(aux.getHijoDer() != null){
+            hijos=hijos+1;
+        }
+        return hijos;
+}
+
+public String elPadre(nodoArbol x, String dato) {
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux.getPadre() == null){
+            mensaje = "Es la raíz. No tiene papá.";
+            return mensaje;
+        }
+        mensaje = "El padre del nodo " + dato + " es " + aux.getPadre().getDato();
+        return mensaje;
+}
+
+public String abuelo(nodoArbol x, String dato){
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux.getPadre() == null){
+            mensaje = "Es la raíz. No tiene abuelo";
+            return mensaje;
+        }
+        if(aux.getPadre().getPadre() == null){
+            mensaje = "No tiene abuelo.";
+            return mensaje;
+        }
+        mensaje = "El abuelo del nodo " + dato + " es " + aux.getPadre().getPadre().getDato();
+        return mensaje;
+}
+
+public String hermanito(nodoArbol x, String dato){
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux.getPadre().getHijoIzq() == aux){
+            if(aux.getPadre().getHijoDer() != null){
+                mensaje = (String) aux.getPadre().getHijoDer().getDato();
+                return mensaje;
+            }
+        }else{
+            if(aux.getPadre().getHijoIzq() != null){
+                mensaje = (String) aux.getPadre().getHijoIzq().getDato();
+                return mensaje;
+            }
+        }
+        return mensaje = "no tiene.";
+}
+
+public String tio(nodoArbol x, String dato){
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux.getPadre() == null){
+            mensaje = "El nodo es la raíz. No tiene tío.";
+            return mensaje;
+        }
+        if(aux.getPadre() == this.raiz){
+            mensaje="El papá del nodo es la raíz. La raíz no tiene hermanos.";
+            return mensaje;
+        }
+        mensaje = "El tio del nodo "+dato+" es "+ hermanito(aux.getPadre(),(String) aux.getPadre().getDato());
+        return mensaje;
+}
+    
     private void initComponents() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
