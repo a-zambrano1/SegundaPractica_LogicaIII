@@ -9,7 +9,9 @@ import java.util.Random;
 
 public class arbolBinario {
     private nodoArbol raiz;
-
+    
+    nodoArbol aux;
+    
     public arbolBinario (Object dato){
         this.raiz = new nodoArbol(dato);
         initComponents();
@@ -49,52 +51,6 @@ public class arbolBinario {
             Component rootPane = null;
             JOptionPane.showMessageDialog(rootPane, r.getDato());
             inorden(r.getHijoDer());
-        }
-    }
-
-    public void insertarNodo(Object dato){
-        nodoArbol hoja = new nodoArbol(dato);
-        if(esVacio()){
-            this.setRaiz(hoja);
-        }else{
-            nodoArbol aux = getRaiz();
-            nodoArbol padre= null;
-            while(true){
-               padre = aux;
-               if((Integer)dato < (Integer)aux.getDato()){
-                  aux = aux.getHijoIzq();
-                    if(aux == null){
-                        padre.setHijoIzq(hoja);
-                        return;
-                    }
-               }else{
-                   aux = aux.getHijoDer();
-                   if(aux == null){
-                       padre.setHijoDer(hoja);
-                       return;
-                   }
-               }
-            }
-        }
-    }
-    
-    public void crearArbolCadena(String s){
-        int n = s.length();
-        int i = 2;
-        nodoArbol raiz = new nodoArbol();
-        raiz.setDato(s.charAt(i));
-        for(i = 3; i < n ; i++){
-            switch(s.charAt(i)){
-                case '(':
-                    continue;
-                case ',':
-                    continue;
-                case ')':
-                    continue;
-                default:
-                    int dat = Character.getNumericValue(s.charAt(i));
-                    insertarNodo(dat);
-            }
         }
     }
     
@@ -541,6 +497,98 @@ public class arbolBinario {
         }
         //inorden(this.raiz);
     }
+    
+    public void nodito(nodoArbol x, String dato){
+        if(x != null){
+            if(dato.compareTo(x.getDato().toString()) == 0){
+                this.aux = x;
+                return;
+            }
+            nodito(x.getHijoIzq(),dato);
+            nodito(x.getHijoDer(), dato);
+        }
+
+    }
+
+    public nodoArbol llamado(nodoArbol x, String dato){
+        this.aux = null;
+        nodito(x,dato);
+        return this.aux;
+}
+
+    public int contarHijos(nodoArbol x, String dato){
+        nodoArbol aux = llamado(x,dato);
+        int hijos=0;
+        if(aux.getHijoIzq() != null){
+            hijos=hijos+1;
+        }
+        if(aux.getHijoDer() != null){
+            hijos=hijos+1;
+        }
+        return hijos;
+}
+
+    public String elPadre(nodoArbol x, String dato) {
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux.getPadre() == null){
+            mensaje = "Es la raíz. No tiene papá.";
+            return mensaje;
+        }
+        mensaje = "El padre del nodo " + dato + " es " + aux.getPadre().getDato();
+        return mensaje;
+}
+
+    public String abuelo(nodoArbol x, String dato){
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux.getPadre() == null){
+            mensaje = "Es la raíz. No tiene abuelo";
+            return mensaje;
+        }
+        if(aux.getPadre().getPadre() == null){
+            mensaje = "No tiene abuelo.";
+            return mensaje;
+        }
+        mensaje = "El abuelo del nodo " + dato + " es " + aux.getPadre().getPadre().getDato();
+        return mensaje;
+}
+
+    public String hermanito(nodoArbol x, String dato){
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux == this.raiz){
+            mensaje="no tiene hermanos.";
+            return mensaje;
+        }
+        if(aux.getPadre().getHijoIzq() == aux){
+            if(aux.getPadre().getHijoDer() != null){
+                mensaje = (String) aux.getPadre().getHijoDer().getDato();
+                return mensaje;
+            }
+        }else{
+            if(aux.getPadre().getHijoIzq() != null){
+                mensaje = (String) aux.getPadre().getHijoIzq().getDato();
+                return mensaje;
+            }
+        }
+        return mensaje = "no tiene.";
+}
+
+    public String tio(nodoArbol x, String dato){
+        String mensaje;
+        nodoArbol aux = llamado(x,dato);
+        if(aux.getPadre() == null){
+            mensaje = "El nodo es la raíz. No tiene tío.";
+            return mensaje;
+        }
+        if(aux.getPadre() == this.raiz){
+            mensaje="El papá del nodo es la raíz. La raíz no tiene hermanos.";
+            return mensaje;
+        }
+        mensaje = "El tio del nodo "+dato+" es "+ hermanito(aux.getPadre(),(String) aux.getPadre().getDato());
+        return mensaje;
+}
    
     private void initComponents() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
