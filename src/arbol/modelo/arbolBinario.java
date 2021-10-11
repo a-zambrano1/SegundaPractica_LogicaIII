@@ -11,6 +11,7 @@ public class arbolBinario {
     private nodoArbol raiz;
     
     nodoArbol aux;
+    String inorden,posorden,preorden;
     
     public arbolBinario (Object dato){
         this.raiz = new nodoArbol(dato);
@@ -589,7 +590,43 @@ public class arbolBinario {
         mensaje = "El tio del nodo "+dato+" es "+ hermanito(aux.getPadre(),(String) aux.getPadre().getDato());
         return mensaje;
 }
-   
+    public String[] ancestros(nodoArbol x, String dato){
+        String[] ancestros = new String[50];
+        nodoArbol aux = llamado(x,dato);
+        int i=0;
+        while(aux.getPadre() != null && i<=ancestros.length){
+            ancestros[i] = (String) aux.getPadre().getDato();
+            aux = aux.getPadre();
+            i++;
+        }
+        return ancestros;
+    }
+    
+    public void recInorden(nodoArbol r){
+        if(r!=null){
+            recInorden(r.getHijoIzq());
+            this.inorden = this.inorden+r.getDato()+",";
+            recInorden(r.getHijoDer());
+        }
+    }
+    
+    public void recPreOrden(nodoArbol r){
+        if(r!=null){
+            this.preorden = this.preorden+r.getDato()+",";
+            recInorden(r.getHijoIzq());
+            recInorden(r.getHijoDer());
+        }
+    }
+    
+    public void recPosOrden(nodoArbol r){
+        if(r!=null){
+            recInorden(r.getHijoIzq());
+            recInorden(r.getHijoDer());
+            this.posorden = this.posorden+r.getDato()+",";
+        }
+    }
+    
+    
     private void initComponents() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
