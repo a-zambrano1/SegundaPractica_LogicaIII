@@ -15,15 +15,26 @@ public class arbolBinario {
     private String posorden;
     private String preorden;
     
+    /**
+     * Crear árbol con nodo raíz
+     * @param dato Nombre del nodo
+     */
     public arbolBinario (Object dato){
         this.raiz = new nodoArbol(dato);
         initComponents();
     }
     
+    /**
+     * Crear árbol vacío 
+     */
     public arbolBinario(){
         
     }
-
+    
+    /**
+     * Verificar si el árbol esta vacío
+     * @return True si lo esta. False de lo contrario
+     */
     boolean esVacio(){
         boolean vacio = false;
         if(getRaiz() == null){
@@ -499,6 +510,12 @@ public class arbolBinario {
         //inorden(this.raiz);
     }
     
+    /**
+     * Método para recorrer el árbol y encontrar el nodo 
+     * que contenga el dato
+     * @param x Nodo inicial del recorrido
+     * @param dato Dato para comprobar nombre del nodo
+     */
     public void nodito(nodoArbol x, String dato){
         if(x != null){
             if(dato.compareTo(x.getDato().toString()) == 0){
@@ -510,13 +527,25 @@ public class arbolBinario {
         }
 
     }
-
+    
+    /**
+     * Méotodo que retorna el nodo solicitado que
+     * contiene como nombre el dato
+     * @param x Nodo inicial del recorrido
+     * @param dato DAto para comprobar el nodo del nombre
+     * @return Nodo del arbol que contiene el dato que entra como paramentro
+     */
     public nodoArbol llamado(nodoArbol x, String dato){
         this.aux = null;
         nodito(x,dato);
         return this.aux;
 }
-
+    /**
+     * Método para contar los hijos de un nodo. Hay 3 posibilidades:0,1,2
+     * @param x Nodo incial del recorrido
+     * @param dato Dato para comprobar el nodo que se esta buscando
+     * @return El numero de hijos del nodo que contiene a Dato
+     */
     public int contarHijos(nodoArbol x, String dato){
         nodoArbol aux = llamado(x,dato);
         int hijos=0;
@@ -528,7 +557,13 @@ public class arbolBinario {
         }
         return hijos;
 }
-
+    
+    /**
+     * Retorna el padre del nodo que contiene al dato
+     * @param x Nodo incial del recorrido
+     * @param dato Dato para comprobar que tengmaos el mismo nodo con ese nombre
+     * @return El mensaje que india cual es el padre
+     */
     public String elPadre(nodoArbol x, String dato) {
         String mensaje;
         nodoArbol aux = llamado(x,dato);
@@ -539,7 +574,12 @@ public class arbolBinario {
         mensaje = "El padre del nodo " + dato + " es " + aux.getPadre().getDato();
         return mensaje;
 }
-
+    /**
+     * Retorna el abuelo del nodo
+     * @param x Nodo inicial del recorrido
+     * @param dato Dato para conseguir el nodo necesario
+     * @return El mensaje que muestra cual es el abuelo
+     */
     public String abuelo(nodoArbol x, String dato){
         String mensaje;
         nodoArbol aux = llamado(x,dato);
@@ -554,7 +594,12 @@ public class arbolBinario {
         mensaje = "El abuelo del nodo " + dato + " es " + aux.getPadre().getPadre().getDato();
         return mensaje;
 }
-
+    /**
+     * Metodo que muestra cual es el hgermano del nodo pedido
+     * @param x Nodo inicial del recorrido
+     * @param dato Dato para conseguir el nodo necesario
+     * @return El mensaje que muestra cual es el hermano del nodo
+     */
     public String hermanito(nodoArbol x, String dato){
         String mensaje;
         nodoArbol aux = llamado(x,dato);
@@ -575,7 +620,12 @@ public class arbolBinario {
         }
         return mensaje = "no tiene.";
 }
-
+    /**
+     * Metodo que retorna el hermano del papa del nodo 
+     * @param x Nodo inicial del recorrido
+     * @param dato Dato para conseguir el nodo
+     * @return El mensaje que muestra el tio del nodo
+     */
     public String tio(nodoArbol x, String dato){
         String mensaje;
         nodoArbol aux = llamado(x,dato);
@@ -589,7 +639,13 @@ public class arbolBinario {
         }
         mensaje = "El tio del nodo "+dato+" es "+ hermanito(aux.getPadre(),(String) aux.getPadre().getDato());
         return mensaje;
-}
+}   
+    /**
+     * Agrega a un vector todos los ancestros de un nodo
+     * @param x Nodo apra iniciar el recorrido
+     * @param dato Dato para conseguir el nodo necesario
+     * @return El arreglo que contiene los ancestros
+     */
     public String[] ancestros(nodoArbol x, String dato){
         String[] ancestros = new String[50];
         nodoArbol aux = llamado(x,dato);
@@ -602,6 +658,10 @@ public class arbolBinario {
         return ancestros;
     }
     
+    /**
+     * Recorrido inorden de un árbol
+     * @param r Nodo incial del recorrido
+     */
     public void recInorden(nodoArbol r){
         if(r!=null){
             recInorden(r.getHijoIzq());
@@ -610,6 +670,10 @@ public class arbolBinario {
         }
     }
     
+    /**
+     * Recorrido preorden de un arbol
+     * @param r Nodo inicial del recorrido
+     */
     public void recPreOrden(nodoArbol r){
         if(r!=null){
             this.preorden = this.getPreorden()+r.getDato()+",";
@@ -618,6 +682,10 @@ public class arbolBinario {
         }
     }
     
+    /**
+     * Recorrido posorden de un arbol
+     * @param r Nodo inicial del recorrido
+     */
     public void recPosOrden(nodoArbol r){
         if(r!=null){
             recInorden(r.getHijoIzq());
