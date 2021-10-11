@@ -230,21 +230,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ingresar nodos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ingresaNodosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="inOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Construir con in order"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inOrderActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="postOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Construir con post order"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="postOrderActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="dosRecorridos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Contruir con dos recorridos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dosRecorridosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="info1">
       <Properties>

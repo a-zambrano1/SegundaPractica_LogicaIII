@@ -134,12 +134,32 @@ public class inicioArbol extends javax.swing.JFrame {
         );
 
         ingresaNodos.setText("Ingresar nodos");
+        ingresaNodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ingresaNodosActionPerformed(evt);
+            }
+        });
 
         inOrder.setText("Construir con in order");
+        inOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inOrderActionPerformed(evt);
+            }
+        });
 
         postOrder.setText("Construir con post order");
+        postOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postOrderActionPerformed(evt);
+            }
+        });
 
         dosRecorridos.setText("Contruir con dos recorridos");
+        dosRecorridos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dosRecorridosActionPerformed(evt);
+            }
+        });
 
         info1.setText("?");
         info1.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +289,7 @@ public class inicioArbol extends javax.swing.JFrame {
         // TODO add your handling code here:
         int tamaño=0;
         try{
-            tamaño = Integer.valueOf(JOptionPane.showInputDialog("Ingrese el tamaño que quiera"));
+            tamaño = Integer.valueOf(JOptionPane.showInputDialog("Ingrese el tamaño"));
             if(tamaño>10){
             JOptionPane.showMessageDialog(rootPane,"Recuerda que el tamaño maximo es 10");
             }
@@ -278,13 +298,59 @@ public class inicioArbol extends javax.swing.JFrame {
                 arbolMain.inorder(arbolMain.getRaiz());
                 arbolMain.posOrder(arbolMain.getRaiz());
                 arbolMain.preOrder(arbolMain.getRaiz());
-                
+                //recorridos
                 
             }
         }catch(NumberFormatException exception){
             JOptionPane.showMessageDialog(rootPane, "Recuerda solo ingresar Numeros");
         }
     }//GEN-LAST:event_porTamañoActionPerformed
+
+    private void ingresaNodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresaNodosActionPerformed
+        // TODO add your handling code here:
+        String nodos =JOptionPane.showInputDialog("Ingresa cada nodo separado por comas");
+        
+        arbolMain.aleatorioDatos(nodos);
+        //poner recorridos
+    }//GEN-LAST:event_ingresaNodosActionPerformed
+
+    private void inOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOrderActionPerformed
+        // TODO add your handling code here:
+        String nodos =JOptionPane.showInputDialog("Ingresa cada nodo separado por comas");
+        arbolMain.inOrderCons(nodos);
+        //poner recorridos
+    }//GEN-LAST:event_inOrderActionPerformed
+
+    private void postOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postOrderActionPerformed
+        // TODO add your handling code here:
+        String nodos =JOptionPane.showInputDialog("Ingresa cada nodo separado por comas");
+        arbolMain.posOrderCons(nodos);
+        //poner recorridos
+    }//GEN-LAST:event_postOrderActionPerformed
+
+    private void dosRecorridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosRecorridosActionPerformed
+        // TODO add your handling code here:
+        String recorrido="";
+        boolean entra =true;
+        int bin= Integer.valueOf(JOptionPane.showInputDialog("Ingresa 0 si vas a utilizar los recorridos in order y pre order\no ingresa 1 si vas a utilizar los recorrido in order y pos order "));
+        if(bin==0){
+            recorrido="pre order";
+        }
+        else if(bin==1){
+            recorrido="pos order";
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane,"Recuerda que solo puedes ingresar 0 o 1");
+            entra= false;
+        }
+        if(entra){
+            String inOrder = JOptionPane.showInputDialog("Ingresa el recorrido in Order, recuerda que cada nodo seprado por coma.");
+            String otro = JOptionPane.showInputDialog("Ingresa el recorrido " + recorrido +", recuerda que cada nodo seprado por coma.");
+            arbolMain.arbolPorRecorridos(inOrder, otro, bin);
+            //poner recorridos
+        }
+        
+    }//GEN-LAST:event_dosRecorridosActionPerformed
 
      
 
