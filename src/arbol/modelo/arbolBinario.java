@@ -63,7 +63,7 @@ public class arbolBinario {
         if(r!=null){
             inorden(r.getHijoIzq());
             Component rootPane = null;
-            JOptionPane.showMessageDialog(rootPane, r.getDato());
+            System.out.println(r.getDato());
             inorden(r.getHijoDer());
         }
     }
@@ -91,7 +91,7 @@ public class arbolBinario {
         nodoArbol[] nodos = new nodoArbol[comas+1];
         nodoArbol aux;
  
-        for (int i=0; i<=comas+1;i++) {
+        for (int i=0; i<=comas;i++) {
             int pos = g.indexOf(",");
             
             if (pos!=(-1)){
@@ -124,7 +124,7 @@ public class arbolBinario {
             g=g.substring(1);
         }
         
-        while(String.valueOf(g.charAt(g.length())).equals(",")){
+        while(String.valueOf(g.charAt(g.length()-1)).equals(",")){
             g=g.substring(0,g.length()-1);
         }
         
@@ -309,8 +309,7 @@ public class arbolBinario {
             nodoArbol padre;
             int pos=0;
 
-            while (pos<nodos.length) {
-                System.out.println("puta");
+            while (pos<nodos.length) { 
                 if(pos+2<nodos.length){
                     hijoDe=nodos[pos];
                     padre=nodos[pos+1];
@@ -363,9 +362,11 @@ public class arbolBinario {
         aux =new nodoArbol[tamaño];
         
         int pos = 0;
+        int i=0;
         while (aux[tamaño-1]==null) {            
             if(nodos[pos].getPadre()==null){
-                aux[pos]= nodos[pos];
+                aux[i]= nodos[pos];
+                i++;
             }
             pos++;
         }
@@ -665,7 +666,7 @@ public class arbolBinario {
     public void recInorden(nodoArbol r){
         if(r!=null){
             recInorden(r.getHijoIzq());
-            this.inorden = this.getInorden()+r.getDato()+",";
+            this.setInorden(this.getInorden()+r.getDato()+",");
             recInorden(r.getHijoDer());
         }
     }
@@ -676,9 +677,9 @@ public class arbolBinario {
      */
     public void recPreOrden(nodoArbol r){
         if(r!=null){
-            this.preorden = this.getPreorden()+r.getDato()+",";
-            recInorden(r.getHijoIzq());
-            recInorden(r.getHijoDer());
+            this.setPreorden(this.getPreorden()+r.getDato()+",");
+            recPreOrden(r.getHijoIzq());
+            recPreOrden(r.getHijoDer());
         }
     }
     
@@ -688,9 +689,9 @@ public class arbolBinario {
      */
     public void recPosOrden(nodoArbol r){
         if(r!=null){
-            recInorden(r.getHijoIzq());
-            recInorden(r.getHijoDer());
-            this.posorden = this.getPosorden()+r.getDato()+",";
+            recPosOrden(r.getHijoIzq());
+            recPosOrden(r.getHijoDer());
+            this.setPosorden(this.getPosorden()+r.getDato()+",");
         }
     }
     
@@ -732,5 +733,26 @@ public class arbolBinario {
      */
     public String getPreorden() {
         return preorden;
+    }
+
+    /**
+     * @param inorden the inorden to set
+     */
+    public void setInorden(String inorden) {
+        this.inorden = inorden;
+    }
+
+    /**
+     * @param posorden the posorden to set
+     */
+    public void setPosorden(String posorden) {
+        this.posorden = posorden;
+    }
+
+    /**
+     * @param preorden the preorden to set
+     */
+    public void setPreorden(String preorden) {
+        this.preorden = preorden;
     }
 }    
