@@ -10,7 +10,7 @@ import arbol.modelo.arbolBinario;
 import arbol.modelo.nodoArbol;
 
 public class inicioArbol extends javax.swing.JFrame {
-
+    arbolBinario arbolMain = new arbolBinario();
     /**
      * Creates new form inicioArbol
      */
@@ -28,24 +28,286 @@ public class inicioArbol extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        porTamaño = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        inOrderLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        preOrderlabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        postOrderLabel = new javax.swing.JLabel();
+        ingresaNodos = new javax.swing.JButton();
+        inOrder = new javax.swing.JButton();
+        postOrder = new javax.swing.JButton();
+        dosRecorridos = new javax.swing.JButton();
+        info1 = new javax.swing.JButton();
+        info2 = new javax.swing.JButton();
+        info3 = new javax.swing.JButton();
+        info4 = new javax.swing.JButton();
+        info5 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setText("Crear arbol");
+
+        porTamaño.setText("Por tamaño");
+        porTamaño.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                porTamañoActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel2.setText("Info Arbol ");
+
+        jButton1.setText("Consultar nodo");
+
+        jLabel3.setText("In order :");
+
+        inOrderLabel.setText("test");
+
+        jLabel5.setText("Pre order");
+
+        preOrderlabel.setText("test");
+
+        jLabel7.setText("Post order");
+
+        postOrderLabel.setText("test");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5)
+                                .addGap(11, 11, 11)
+                                .addComponent(preOrderlabel))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inOrderLabel))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(postOrderLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(jLabel2)
+                .addContainerGap(108, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(inOrderLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(preOrderlabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(postOrderLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(21, 21, 21))
+        );
+
+        ingresaNodos.setText("Ingresar nodos");
+
+        inOrder.setText("Construir con in order");
+
+        postOrder.setText("Construir con post order");
+
+        dosRecorridos.setText("Contruir con dos recorridos");
+
+        info1.setText("?");
+        info1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                info1ActionPerformed(evt);
+            }
+        });
+
+        info2.setText("?");
+        info2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                info2ActionPerformed(evt);
+            }
+        });
+
+        info3.setText("?");
+        info3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                info3ActionPerformed(evt);
+            }
+        });
+
+        info4.setText("?");
+        info4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                info4ActionPerformed(evt);
+            }
+        });
+
+        info5.setText("?");
+        info5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                info5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 606, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(48, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(dosRecorridos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(postOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ingresaNodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(porTamaño, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(info1)
+                            .addComponent(info2)
+                            .addComponent(info3)
+                            .addComponent(info4)
+                            .addComponent(info5))
+                        .addGap(63, 63, 63)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 351, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(porTamaño)
+                    .addComponent(info1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ingresaNodos)
+                    .addComponent(info2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inOrder)
+                    .addComponent(info3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(postOrder)
+                    .addComponent(info4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dosRecorridos)
+                    .addComponent(info5))
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void info1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_info1ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane,"Ingresa la altura del arbol que quieres contruir\npara fines de optimizacion el limite para este\nserá de 10 de altura.");
+    }//GEN-LAST:event_info1ActionPerformed
+
+    private void info2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_info2ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Ingresa los nombres de los nodos de tu arbol \n"
+                                              + "separados por comas y se creará un arbol aleatorio\ncon estas.");
+    }//GEN-LAST:event_info2ActionPerformed
+
+    private void info3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_info3ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Ingresa una seria de nombres de nodos separados por comas\nque representen el recorrido in order de un arbol, no necesariamente\nse creara tu arbol, solo será uno con el mismo recorrido in order.");
+    }//GEN-LAST:event_info3ActionPerformed
+
+    private void info4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_info4ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Ingresa una seria de nombres de nodos separados por comas\nque representen el recorrido post order de un arbol, no necesariamente\nse creara tu arbol, solo será uno con el mismo recorrido post order.");
+    }//GEN-LAST:event_info4ActionPerformed
+
+    private void info5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_info5ActionPerformed
+        // TODO add your handling code here
+        JOptionPane.showMessageDialog(rootPane,"Ingresa dos recorridos, un recorrido in order "
+                                             + "y un post order o un inorder y un pre order\n "
+                                             + "con estos dos recorridos se creará tu arbol.");
+    }//GEN-LAST:event_info5ActionPerformed
+
+    private void porTamañoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porTamañoActionPerformed
+        // TODO add your handling code here:
+        int tamaño=0;
+        try{
+            tamaño = Integer.valueOf(JOptionPane.showInputDialog("Ingrese el tamaño que quiera"));
+            if(tamaño>10){
+            JOptionPane.showMessageDialog(rootPane,"Recuerda que el tamaño maximo es 10");
+            }
+            else{
+                arbolMain.aleatorioPorTamaño(tamaño);
+                arbolMain.inorder(arbolMain.getRaiz());
+                arbolMain.posOrder(arbolMain.getRaiz());
+                arbolMain.preOrder(arbolMain.getRaiz());
+                
+                
+            }
+        }catch(NumberFormatException exception){
+            JOptionPane.showMessageDialog(rootPane, "Recuerda solo ingresar Numeros");
+        }
+    }//GEN-LAST:event_porTamañoActionPerformed
+
      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton dosRecorridos;
+    private javax.swing.JButton inOrder;
+    private javax.swing.JLabel inOrderLabel;
+    private javax.swing.JButton info1;
+    private javax.swing.JButton info2;
+    private javax.swing.JButton info3;
+    private javax.swing.JButton info4;
+    private javax.swing.JButton info5;
+    private javax.swing.JButton ingresaNodos;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton porTamaño;
+    private javax.swing.JButton postOrder;
+    private javax.swing.JLabel postOrderLabel;
+    private javax.swing.JLabel preOrderlabel;
     // End of variables declaration//GEN-END:variables
 }
